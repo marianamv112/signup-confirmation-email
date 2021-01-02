@@ -1,8 +1,13 @@
 import React from "react";
 import AuthService from "../services/auth.service";
 
-const Profile = () => {
+
+const Profile = (props) => {
   const currentUser = AuthService.getCurrentUser();
+
+  if (props.match.path === "/confirm/:confirmationCode") {
+    AuthService.verifyUser(props.match.params.confirmationCode)
+  }
 
   return (
     <div className="container">
@@ -20,6 +25,9 @@ const Profile = () => {
       </p>
       <p>
         <strong>Email:</strong> {currentUser.email}
+      </p>
+      <p>
+        <strong>Status:</strong> {currentUser.status}
       </p>
       <strong>Authorities:</strong>
       <ul>

@@ -20,7 +20,6 @@ const login = (username, password) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
       }
-
       return response.data;
     });
 };
@@ -33,9 +32,16 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
+const verifyUser = (code) => {
+  return axios.get(API_URL + "confirm/" + code).then((response) => {
+    return response.data;
+  });
+};
+
 export default {
   register,
   login,
   logout,
   getCurrentUser,
+  verifyUser,
 };
